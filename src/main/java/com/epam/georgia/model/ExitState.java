@@ -4,6 +4,7 @@ public class ExitState implements Status {
 
     @Override
     public Status handle() {
+        System.out.println("BYE! :)");
         return null;
     }
 

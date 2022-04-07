@@ -8,16 +8,15 @@ import java.util.List;
 
 public class CalcState implements Status {
 
-    List<String> values;
+    List<Double> values;
     Calculator calculator = new CalculatorImpl();
-    public CalcState(List<String> values) {
+    public CalcState(List<Double> values) {
         this.values = values;
     }
 
     @Override
     public Status handle() {
-        BigDecimal result = calculator.handle(Double.valueOf(values.get(0)), Double.valueOf(values.get(1)),
-                Double.valueOf(values.get(2)), Double.valueOf(values.get(3)));
+        BigDecimal result = calculator.handle(values.get(0), values.get(1), values.get(2), values.get(3));
         System.out.println("Result = " + result);
         return new ReadDataState();
     }
