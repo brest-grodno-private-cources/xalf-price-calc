@@ -2,20 +2,24 @@ package com.epam.georgia.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class ReadDataState implements Status {
 
-    public static final int NUMBER_NEEDED_VALUES = 4;
+    public static final int NUMBER_NEEDED_VALUES = 2;
+
+    Map<Integer, Double> massPrices;
+    Map<Integer, Double> distancePrices;
+
+    public ReadDataState(Map<Integer, Double> massPrices, Map<Integer, Double> distancePrices) {
+        this.massPrices = massPrices;
+        this.distancePrices = distancePrices;
+    }
 
     Scanner scanner = new Scanner(System.in);
     List<Double> values = new ArrayList<>();
-    String[] systemMessages = {
-            "Please enter pricePerKg ",
-            "Please enter mass ",
-            "Please enter pricePerKm ",
-            "Please enter distance "};
-
+    String[] systemMessages = {"Please enter mass ", "Please enter distance "};
     String helpMessage = "(or press 'q' to Exit): ";
 
     @Override
@@ -32,7 +36,7 @@ public class ReadDataState implements Status {
                 values.add(Double.valueOf(enteredValue));
             }
         }
-        return new CalcState(values);
+        return new CalcState(massPrices, distancePrices, values);
     }
 
     private boolean isCorrectValue(String value) {

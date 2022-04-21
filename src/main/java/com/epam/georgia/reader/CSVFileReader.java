@@ -1,9 +1,6 @@
 package com.epam.georgia.reader;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -13,7 +10,8 @@ public class CSVFileReader implements FileReader {
     public Map<Integer, Double> readData(String filePath) throws IOException {
 
         Map<Integer, Double> resultMap = new TreeMap<>();
-        InputStream inputStream = getClass().getResourceAsStream("/" + filePath);
+        File initialFile = new File(filePath);
+        InputStream inputStream = new FileInputStream(initialFile);
         try (InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
              BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
             String line;
