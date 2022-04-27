@@ -14,20 +14,18 @@ public class Main {
     public static void main(String[] args) throws IOException {
         System.out.println("CALC SYSTEM");
 
-//        Map<Integer, Double> massPrices = readFile("mass-price.csv");
-//        Map<Integer, Double> distancePrices = readFile("distance-prices.csv");
-
-        Map<Integer, Double> massPrices = new CSVFileReader().readData("mass-prices.csv");
-        if (massPrices == null || massPrices.isEmpty()) {
-            System.out.println("Can't read file mass-prices.csv.");
-            return;
+        String massPricesFileName = "mass-prices.csv";
+        String distancePricesFileName = "distance-prices.csv";
+        if (args != null && args.length == 2) {
+            massPricesFileName = args[0];
+            distancePricesFileName = args[1];
         }
 
-        Map<Integer, Double> distancePrices = new CSVFileReader().readData("distance-prices.csv");
-        if (distancePrices == null || distancePrices.isEmpty()) {
-            System.out.println("Can't read file distance-prices.csv.");
-            return;
-        }
+        System.out.println("mass-prices file is: " + massPricesFileName);
+        System.out.println("distance-prices file is: " + distancePricesFileName);
+
+        Map<Integer, Double> massPrices = readFile(massPricesFileName);
+        Map<Integer, Double> distancePrices = readFile(distancePricesFileName);
 
         Status currentStatus = new ReadDataState(massPrices, distancePrices);
         while (currentStatus.getType() != StatusType.EXIT) {
@@ -36,11 +34,11 @@ public class Main {
         currentStatus.handle();
     }
 
-//    private static Map<Integer, Double> readFile(String fileName) throws IOException {
-//        Map<Integer, Double> massPrices = new CSVFileReader().readData(fileName);
-//        if (massPrices == null || massPrices.isEmpty()) {
-//            throw new IOException("Can't read file: " + fileName);
-//        }
-//        return massPrices;
-//    }
+    private static Map<Integer, Double> readFile(String fileName) throws IOException {
+        Map<Integer, Double> massPrices = new CSVFileReader().readData(fileName);
+        if (massPrices == null || massPrices.isEmpty()) {
+            throw new IOException("Can't read file: " + fileName);
+        }
+        return massPrices;
+    }
 }
