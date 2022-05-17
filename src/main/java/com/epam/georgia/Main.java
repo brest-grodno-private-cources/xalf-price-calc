@@ -19,7 +19,7 @@ public class Main {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring-config.xml");
         FileReader fileReader = (FileReader) applicationContext.getBean(CSVFileReader.class);
 
-        System.out.println("CALC SYSTEM");
+        System.out.println("CALC SYSTEM: START");
 
         String massPricesFileName = "mass-prices.csv";
         String distancePricesFileName = "distance-prices.csv";
